@@ -1,5 +1,7 @@
 package com.example.calculator;
 
+import java.io.IOException;
+
 public class Calculator {
 
     public int first;
@@ -12,7 +14,7 @@ public class Calculator {
         second = 0;
     }
 
-    public int calculate() {
+    public int calculate() throws IOException {
         if (operation.equals("C")){
             return 0;
         }
@@ -31,8 +33,11 @@ public class Calculator {
         else if (operation.equals("=")) {
             return first;
         }
-        else {
+        else if (operation.isEmpty()) {
             return second;
+        }
+        else {
+            throw new IOException();
         }
     }
 }

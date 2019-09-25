@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
@@ -21,7 +23,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void calculatePlus() {
+    public void calculatePlus() throws Exception {
         calc.first = 1;
         calc.second = 2;
         calc.operation = "+";
@@ -29,7 +31,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void calculateMinus() {
+    public void calculateMinus() throws Exception {
         calc.first = 7;
         calc.second = 2;
         calc.operation = "−";
@@ -37,7 +39,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void calculateMulty() {
+    public void calculateMulty() throws Exception {
         calc.first = 3;
         calc.second = 2;
         calc.operation = "×";
@@ -45,27 +47,26 @@ public class CalculatorTest {
     }
 
     @Test
-    public void calculateDivide() {
+    public void calculateDivide() throws Exception {
         calc.first = 8;
         calc.second = 2;
         calc.operation = "÷";
         assertEquals(4, calc.calculate());
     }
 
-    @Test
-    public void calculateDivideZero() {
+    @Test (expected = ArithmeticException.class)
+    public void calculateDivideZero() throws Exception {
         calc.first = 1;
         calc.second = 0;
         calc.operation = "÷";
         assertEquals(2, calc.calculate());
     }
 
-    @Test
-    public void calculateUnknownOperation() {
+    @Test (expected = IOException.class)
+    public void calculateUnknownOperation() throws Exception  {
         calc.first = 1;
         calc.second = 2;
         calc.operation = "%";
         assertEquals(3, calc.calculate());
     }
-
 }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText display;
@@ -17,7 +19,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Button button = (Button) view;
-            pushButton(button.getText().toString());
+            try {
+                pushButton(button.getText().toString());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         calculator = new Calculator();
     }
 
-    private void pushButton(String sign) {
+    private void pushButton(String sign) throws IOException {
         if (sign.equals("C")) {
             display.setText("0");
             calculator.first = 0;
