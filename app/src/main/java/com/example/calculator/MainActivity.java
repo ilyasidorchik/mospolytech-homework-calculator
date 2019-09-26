@@ -15,19 +15,6 @@ public class MainActivity extends AppCompatActivity {
     Button[] buttons = new Button[16];
     Calculator calculator;
 
-    View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Button button = (Button) view;
-            try {
-                pushButton(button.getText().toString());
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +45,19 @@ public class MainActivity extends AppCompatActivity {
         calculator = new Calculator();
     }
 
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Button button = (Button) view;
+            try {
+                pushButton(button.getText().toString());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
     private void pushButton(String sign) throws IOException {
         if (sign.equals("C")) {
             display.setText("0");
@@ -66,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
             calculator.operation = "";
         }
         else if ("0123456789".contains(sign)) {
-            if (calculator.second == Integer.parseInt(display.getText().toString())){
+            if (calculator.second == Integer.parseInt(display.getText().toString())) {
                 calculator.second = Integer.parseInt(display.getText().toString() + sign);
             }
             else {
                 calculator.second = Integer.parseInt(sign);
             }
+
             display.setText(Integer.toString(calculator.second));
         }
         else {
